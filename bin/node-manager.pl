@@ -39,22 +39,22 @@ if (!$node) {
 
 for ($cmd) { 
  
-    ($_ eq 'enable') && do {
+    /enable/ && do {
 	$grid_manager->enableNode($node);
 	last;
     };
 
-    ($_ eq 'disable') && do {
+    /disable/ && do {
 	$grid_manager->disableNode($node);
 	last;
     };
 
-    ($_ eq 'release') && do {
+    /release/ && do {
 	$grid_manager->enableNode($node);
 	last;
     };
 
-    ($_ eq 'shutdown') && do {
+    /shutdown/ && do {
 	my $id = $grid_manager->createReservationID();
 	$grid_manager->connectToNode($id, $node, 1) || die "failed to connect to node";
 	my $cmd = $grid_manager->createCommand('done', 1);
