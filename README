@@ -1,0 +1,47 @@
+Net-Grid
+===================================
+
+INSTALLATION
+
+To install this module type the following:
+
+   perl Makefile.PL
+   make
+   make test
+   make install
+
+
+MASTER/SLAVE DESIGN
+
+The grid system is designed as an N/N master/slave distributed grid.  This means that one or more masters reserve one or more slaves each and distribute work to them.  Work is distributed from the master to a slave via a streaming tcp socket.  Each slave is a pre-forked multiprocess system with a server listening for work on a socket connection.  When work arrives at the slave it will attempt to distribute the tasks in a round-robin fashion to a child process.  The interprocess communication between the slave and it's associated worker processes is via a socketpair.  The number of child processes that a slave pre-forks is configurable as is the port number that the slave is listening on.  Each slave must be started with a Task classname which defines the type of task that this slave is capable of performing.  Slaves are not currently capable of performing more than one type of job, although it would be trivial to implement this were it needed.
+
+
+SLAVE ALLOCATION
+
+The master nodes attempt to allocate up to a preconfigured number of slaves from the grid.  If the server is unable to allocate the maximum number (ie. there are fewer slaves available than the number of desired slaves) then it will periodically attempt to allocoate more slaves every 60 seconds as it runs in the hope that more slaves come on line.
+
+
+SLAVE EXAMPLES
+
+See "perldoc bin/slave.pl" for more information on using the bin/slave.pl script directly.  See "perldoc DBI" on information about defining perl DBI connection strings.
+
+
+MASTER EXAMPLES
+
+See "perldoc bin/master.pl" for more information on using the bin/master.pl script directly.
+
+
+NODE MANAGER
+
+In addition to master and slave executables, there is also a node-manager.pl script which allows you to manipulate the nodes table in the simple-grid database.
+
+ Shutdown a slave which is advertised at 'foo.mydomain.com' on port '1337' (functionally similar to the --shutdown_slaves switch in the bin/master.pl script):
+
+    perl -Ilib bin/node-manager.pl -h foo.mydomain.com -p 1337 --manager_args="dsn=dbi:mysql:<mydb>:hostname=mydb.host.com;port=3306" --manager_args=username=<mydbuser> --manager_args=password=<mydbpwd> shutdown
+
+See "perldoc bin/node-manager.pl" for usage.
+
+
+SIGNAL HANDLING
+
+HUP and INT signals are handled in the master.pl and slave.pl executables such that node resources are released through a full shutdown procedure.

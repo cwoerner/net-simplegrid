@@ -1,0 +1,11 @@
+Revision history for Perl extension Net::SimpleGrid.
+
+0.09  Mon Feb 25 17:28:51 PST 2008
+      - refactoring to Slave
+      - adding EmailValidationTask
+      - adding Task::prepare to setup schema 
+
+0.01  Mon Feb 11 19:52:40 2008
+	- original version; created by h2xs 1.23 with options
+		-AXc -n Net::SimpleGrid
+

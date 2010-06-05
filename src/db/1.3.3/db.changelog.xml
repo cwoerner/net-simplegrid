@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.4"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.4 file://../dbchangelog-1.4.xsd">
+
+<changeSet author="cwoerner" id="1203355633-1" schemaVersion="1.3.3">
+	   <createTable tableName="nodes">
+	   		<column name="hostname" type="varchar(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="port" type="int">
+				<constraints nullable="false" />
+			</column>
+			<column name="start_time" type="int" />
+			<column name="state" type="varchar(16)" />
+			<column name="reserved_by" type="varchar(100)" />
+			<column name="children" type="int" />
+	   </createTable>
+	   <addPrimaryKey tableName="nodes" columnNames="hostname,port" constraintName="pk_nodes_host_port" />
+</changeSet>
+
+<changeSet author="cwoerner" id="1203355633-2" schemaVersion="1.3.3">
+	   <createTable tableName="domain_description">
+			<column name="domain" type="varchar(75)">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="description" type="varchar(2048)" />
+	   </createTable>
+</changeSet>
+
+</databaseChangeLog>

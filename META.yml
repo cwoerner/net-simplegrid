@@ -1,0 +1,27 @@
+# http://module-build.sourceforge.net/META-spec.html
+#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
+name:         Net-Grid
+version:      0.09
+version_from: lib/Net/Grid.pm
+installdirs:  site
+requires:
+    DBD::mysql:                    
+    DBI:                           
+    File::Spec:                    
+    Getopt::Long:                  
+    HTML::Parser:                  
+    HTTP::Request:                 
+    IO::Handle:                    
+    IPC::SysV:                     
+    LWP::UserAgent:                
+    Mail::RFC822::Address:         
+    Net::DNS:                      
+    Net::SMTP:                     
+    POSIX:                         
+    Socket:                        
+    Sys::Hostname:                 
+    Text::CSV_XS:                  
+    URI:                           
+
+distribution_type: module
+generated_by: ExtUtils::MakeMaker version 6.30
